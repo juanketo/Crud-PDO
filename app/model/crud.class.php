@@ -22,32 +22,65 @@ class Crud {
       unset($this->conexion);
       return $result;
     }
+    public function readCategoria() {
+      $query = "SELECT * FROM t_categoria";
+      $stmt = $this->conexion->prepare($query);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      unset($this->conexion);
+      return $result;
+    }
 
     public function create($datos){
-      $query = "INSERT INTO contactos (nombre, telefono, email) VALUES (:nombre, :telefono, :email)";
+      $query = "INSERT INTO contactos (nombre, telefono, email, idcategoria) VALUES (:nombre, :telefono, :email, :idcategoria )";
       $stmt = $this->conexion->prepare($query);
       $stmt->bindParam(":nombre", $datos["nombre"]);
       $stmt->bindParam(":telefono", $datos["telefono"]);
       $stmt->bindParam(":email", $datos["email"]);
+      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
+      $stmt->execute();
+      unset($this->conexion);
+      return json_encode($stmt);
+    }
+    public function createCategoria($datos){
+      $query = "INSERT INTO contactos (nombre, telefono, email, idcategoria) VALUES (:nombre, :telefono, :email, :idcategoria )";
+      $stmt = $this->conexion->prepare($query);
+      $stmt->bindParam(":nombre", $datos["nombre"]);
+      $stmt->bindParam(":telefono", $datos["telefono"]);
+      $stmt->bindParam(":email", $datos["email"]);
+      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
       $stmt->execute();
       unset($this->conexion);
       return json_encode($stmt);
     }
 
     public function update ($datos){
-      $query = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, email=:email WHERE id=:id";
+      $query = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, email=:email idcategoria=:idcategoria WHERE id=:id";
       $stmt = $this->conexion->prepare($query);
       $stmt->bindParam(":id", $datos["id"]);
       $stmt->bindParam(":nombre", $datos["nombre"]);
       $stmt->bindParam(":telefono", $datos["telefono"]);
       $stmt->bindParam(":email", $datos["email"]);
+      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
+      $stmt->execute();
+      unset($this->conexion);
+      return $stmt;
+    }
+    public function updateCategoria ($datos){
+      $query = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, email=:email idcategoria=:idcategoria WHERE id=:id";
+      $stmt = $this->conexion->prepare($query);
+      $stmt->bindParam(":id", $datos["id"]);
+      $stmt->bindParam(":nombre", $datos["nombre"]);
+      $stmt->bindParam(":telefono", $datos["telefono"]);
+      $stmt->bindParam(":email", $datos["email"]);
+      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
       $stmt->execute();
       unset($this->conexion);
       return $stmt;
     }
 
     public function delete ($id){
-      $query = "SELECT  FROM contactos WHERE id=id";
+      $query = "DELETE  FROM contactos WHERE id=:id";
       $stmt = $this->conexion->prepare($query);
       $stmt->bindParam(":id",$id);
       $stmt->execute();
@@ -64,5 +97,13 @@ class Crud {
     unset($this->conexion);
     return $result;
   }
-}
-?>
+
+  public function categoria($datos){
+    $query = "INSERT INTO t_categoria(categoria) VALUES (:categoria)";
+    $stmt = $this->conexion->prepare($query);
+    $stmt->bindParam(":categoria", $datos);
+    $stmt->execute();
+    unset($this->conexion);
+    return json_encode($stmt);
+  }
+  }
