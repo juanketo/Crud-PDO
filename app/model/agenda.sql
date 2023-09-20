@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `agenda`.`t_categoria` (
   `categoria` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idcategoria`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -33,19 +33,20 @@ DEFAULT CHARACTER SET = utf8mb4;
 -- Table `agenda`.`contactos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `agenda`.`contactos` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `telefono` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `idcategoria` INT(11) NOT NULL,
+  `categoria` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_idcategoria_idx` (`idcategoria` ASC) VISIBLE,
-  CONSTRAINT `fk_idcategoria`
-    FOREIGN KEY (`idcategoria`)
+  INDEX `fdx_idcategoria_idx` (`categoria` ASC) VISIBLE,
+  CONSTRAINT `fdx_idcategoria`
+    FOREIGN KEY (`categoria`)
     REFERENCES `agenda`.`t_categoria` (`idcategoria`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8mb4;
 
 
