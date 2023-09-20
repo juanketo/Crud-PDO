@@ -5,6 +5,7 @@
         let nombre = $("#nombre").val();
         let telefono = $('#telefono').val();
         let email = $('#email').val();
+        let categoria = $('#categoria').val();
 
         if (nombre === "" || telefono === "" || email === "") {
           Swal.fire({
@@ -51,11 +52,11 @@
               nombre,
               telefono,
               email,
+              categoria
             },
             type: "POST",
 
-            success: (a,b,c) => {
-              console.log(a,b,c);
+            success: () => {
               Swal.fire({
                 title: 'Contacto Actualizado',
                 text: "Contacto Guardado con exito!",

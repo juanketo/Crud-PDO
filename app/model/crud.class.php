@@ -15,13 +15,14 @@ class Crud {
     }
 
     public function read() {
-      $query = "SELECT * FROM contactos";
+      $query = "SELECT contactos.id, contactos.nombre, contactos.telefono, contactos.email, t_categoria.categoria FROM contactos LEFT JOIN t_categoria ON contactos.categoria = t_categoria.idcategoria";
       $stmt = $this->conexion->prepare($query);
       $stmt->execute();
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
       unset($this->conexion);
       return $result;
     }
+
     public function readCategoria() {
       $query = "SELECT * FROM t_categoria";
       $stmt = $this->conexion->prepare($query);
@@ -32,48 +33,33 @@ class Crud {
     }
 
     public function create($datos){
-      $query = "INSERT INTO contactos (nombre, telefono, email, idcategoria) VALUES (:nombre, :telefono, :email, :idcategoria )";
+      $query = "INSERT INTO contactos (nombre, telefono, email, categoria) VALUES (:nombre, :telefono, :email, :idcategoria )";
       $stmt = $this->conexion->prepare($query);
       $stmt->bindParam(":nombre", $datos["nombre"]);
       $stmt->bindParam(":telefono", $datos["telefono"]);
       $stmt->bindParam(":email", $datos["email"]);
-      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
-      $stmt->execute();
-      unset($this->conexion);
-      return json_encode($stmt);
-    }
-    public function createCategoria($datos){
-      $query = "INSERT INTO contactos (nombre, telefono, email, idcategoria) VALUES (:nombre, :telefono, :email, :idcategoria )";
-      $stmt = $this->conexion->prepare($query);
-      $stmt->bindParam(":nombre", $datos["nombre"]);
-      $stmt->bindParam(":telefono", $datos["telefono"]);
-      $stmt->bindParam(":email", $datos["email"]);
-      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
+      $stmt->bindParam(":idcategoria", $datos["categoria"]);
       $stmt->execute();
       unset($this->conexion);
       return json_encode($stmt);
     }
 
     public function update ($datos){
-      $query = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, email=:email idcategoria=:idcategoria WHERE id=:id";
+      $query = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, email=:email, categoria=:categoria WHERE id=:id";
       $stmt = $this->conexion->prepare($query);
       $stmt->bindParam(":id", $datos["id"]);
       $stmt->bindParam(":nombre", $datos["nombre"]);
       $stmt->bindParam(":telefono", $datos["telefono"]);
       $stmt->bindParam(":email", $datos["email"]);
-      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
+      $stmt->bindParam(":categoria", $datos["categoria"]);
       $stmt->execute();
       unset($this->conexion);
       return $stmt;
     }
     public function updateCategoria ($datos){
-      $query = "UPDATE contactos SET nombre=:nombre, telefono=:telefono, email=:email idcategoria=:idcategoria WHERE id=:id";
+      $query = "UPDATE t_categoria SET categoria=:categoria WHERE idcategoria=:idcategoria";
       $stmt = $this->conexion->prepare($query);
-      $stmt->bindParam(":id", $datos["id"]);
-      $stmt->bindParam(":nombre", $datos["nombre"]);
-      $stmt->bindParam(":telefono", $datos["telefono"]);
-      $stmt->bindParam(":email", $datos["email"]);
-      $stmt->bindParam(":idcategoria", $datos["idcategoria"]);
+      $stmt->bindParam(":categoria", $datos["categoria"]);
       $stmt->execute();
       unset($this->conexion);
       return $stmt;
@@ -87,9 +73,17 @@ class Crud {
       unset($this->conexion);
       return $stmt;
     }
+    public function deleteCategoria ($id){
+      $query = "DELETE  FROM t_categoria WHERE idcategoria=:idcategoria";
+      $stmt = $this->conexion->prepare($query);
+      $stmt->bindParam(":idcategoria",$idcategoria);
+      $stmt->execute();
+      unset($this->conexion);
+      return $stmt;
+    }
 
   public function show ($id){
-    $query = "SELECT * FROM contactos WHERE id=:id";
+    $query = "SELECT contactos.id, contactos.nombre, contactos.telefono, contactos.email, t_categoria.categoria as nombrecategoria, contactos.categoria FROM contactos LEFT JOIN t_categoria ON contactos.categoria = t_categoria.idcategoria WHERE contactos.id =:id";
     $stmt = $this->conexion->prepare($query);
     $stmt->bindParam(":id",$id);
     $stmt->execute();

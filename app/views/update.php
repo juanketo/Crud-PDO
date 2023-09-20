@@ -1,3 +1,8 @@
+<?php
+
+  $crudU = new Crud();
+  $categorias = $crudU -> readCategoria();
+?>
 <div class="container">
   <div class="row">
     <div class="col">
@@ -19,6 +24,17 @@
           <input type="email" class="form-control" id="email" value="<?php echo $contacto["email"] ?>" aria-describedby="emailHelp">
           <div id="emailHelp" class="form-text">Ingresa el email a actualizar</div>
         </div>
+        <select for="idcategoria" id="categoria" class="form-control">
+            <option value="<?php echo $contacto['categoria']?>"><?php echo $contacto['nombrecategoria']?></option>
+            <?php 
+              foreach($categorias as $categoria):
+            ?>
+            <option value="<?php echo $categoria['idcategoria']?>"> <?php echo $categoria['categoria']?> </option>
+            <?php 
+              endforeach;
+            ?>
+          </select>
+          <br>
         <button id="actualizar" class="btn btn-success">Actualizar</button>
         <a class="btn btn-warning" href="./read">Regresar</a>
 

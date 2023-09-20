@@ -22,6 +22,7 @@
                 include "./app/views/read.php";
                 break;
             case 'create':
+                $Categoria = $crud->readCategoria();
                 include "./app/views/create.php";
                 break;
             case 'update':

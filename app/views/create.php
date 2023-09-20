@@ -19,9 +19,16 @@
           <div id="emailHelp" class="form-text">Ingresa el email a crear</div>
         </div>
         <div class="mb-3">
-          <label for="idcategoria" class="form-label">Categoria</label>
-          <input type="idcategoria" class="form-control" id="idcategoria" aria-describedby="idcategoriaHelp">
-          <div id="idcategoriaHelp" class="form-text">Ingresa la categoria a crear</div>
+          <select for="idcategoria" id="categoria" class="form-control">
+            <option value="">Crear categoria</option>
+            <?php 
+              foreach($Categoria as $categoria):
+            ?>
+            <option value="<?php echo $categoria['idcategoria']?>"> <?php echo $categoria['categoria']?> </option>
+            <?php 
+              endforeach;
+            ?>
+          </select>
         </div>
         <button id="crear" class="btn btn-success">Crear</button>
         <a class="btn btn-warning" href="./read">Regresar</a>

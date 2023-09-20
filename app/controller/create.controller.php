@@ -4,9 +4,9 @@
         let nombre = $("#nombre").val();
         let telefono = $('#telefono').val();
         let email = $('#email').val();
-        let idcategoria = $('#idcategoria').val();
+        let categoria = $('#categoria').val();
 
-        if (nombre === "" || telefono === "" || email === "" || idcategoria === "" ) {
+        if (nombre === "" || telefono === "" || email === "") {
           Swal.fire({
             icon: 'error',
             title: 'Sus datos no se pudieron enviar',
@@ -43,14 +43,6 @@
           });
           return;
         }
-        if (idcategoria.length < 3 || /\d/.test(idcategoria)) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Los datos de categoria estan mal',
-            text: 'favor de tener mas de 3 letras y que no contenga numeros',
-          });
-          return false;
-        }
 
         $.ajax({
             url: "./app/model/process/create.process.php",
@@ -58,11 +50,12 @@
               nombre,
               telefono,
               email,
-              idcategoria,
+              categoria,
             },
             type: "POST",
 
-            success: () => {
+            success: (a,b,c,d) => {
+              console.log(a,b,c,d);
               Swal.fire({
                 title: 'Contacto guardado',
                 text: "Contacto Guardado con exito!",
@@ -70,7 +63,7 @@
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'ok'
               }).then((result) => {
-                    window.location = "./read"
+                    //window.location = "./read"
                    })
           },
           error: () => {

@@ -23,19 +23,17 @@
 
                     ?>
                         <tr>
-                            <td hidden id="id"> <?php echo $contacto['id'] ?> </td>
                             <td> <?php echo $contacto["nombre"] ?> </td>
                             <td> <?php echo $contacto["telefono"] ?> </td>
                             <td> <?php echo $contacto["email"] ?> </td>
-                            <td> <?php echo $contacto["idcategoria"] ?> </td>
+                            <td> <?php echo $contacto["categoria"] ?> </td>
                             <td>
-                                <a class="btn btn-warning" href="./update&id=<?php echo $contacto["id"] ?>">Actualizar</a>
+                                <a class="btn btn-warning" href="./update&id=<?php echo $contacto['id'] ?>"> Actualizar</a>
                             </td>
                             <td>
                                 <button onclick="eliminar(<?php echo $contacto['id']?>)" class="btn btn-danger">Eliminar</button>
                             </td>
-                        </tr>
-                        <input id="id" type="text" hidden>
+                    </tr>
                     <?php
                     endforeach;
                     ?>

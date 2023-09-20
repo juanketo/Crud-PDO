@@ -6,7 +6,7 @@ $crud->create([
     "nombre" => $_POST["nombre"],
     "telefono" => $_POST["telefono"],
     "email" => $_POST["email"],
-    "idcategoria" => $_POST["idcategoria"]
+    "categoria" => $_POST["categoria"]
     ]);
 
 ?>
